@@ -7,10 +7,6 @@
 # CMD ["sh", "-c", "npx prisma generate && npm start"]
 
 FROM node:20-alpine
-
-ENV DATABASE_URL=${DATABASE_URL}
-ENV JWT_SECRET=${JWT_SECRET}
-
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install

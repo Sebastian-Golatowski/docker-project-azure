@@ -1,0 +1,35 @@
+services:
+  db:
+    build: ./db
+    container_name: moja_baza
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: dockerdb
+    ports:
+      - 3306:3306
+
+  back-auth:
+    build: ./back-auth
+    ports:
+      - 3001:3001
+    environment:
+      DATABASE_URL: mysql://root:rootpassword@db:3306/dockerdb
+      JWT_SECRET: iohfghik;uffhsdkuaiGUIODFSghuiofdsUIFGSaeguifeWGUIasefd
+
+  back-logic:
+    build: ./back-logic
+    ports:
+      - 3002:3002
+    environment:
+      DATABASE_URL: mysql://root:rootpassword@db:3306/dockerdb
+      JWT_SECRET: iohfghik;uffhsdkuaiGUIODFSghuiofdsUIFGSaeguifeWGUIasefd
+
+  front:
+    build: ./docker-front
+    environment:
+      VITE_AUTH_BACK_URL: http://localhost:3001
+      VITE_LOGIC_BACK_URL: http://localhost:3002
+    ports:
+      - "80:5137"
+
+
