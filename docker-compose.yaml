@@ -7,29 +7,47 @@ services:
       MYSQL_DATABASE: dockerdb
     ports:
       - 3306:3306
-
+    networks:
+      - my_network
   back-auth:
     build: ./back-auth
     ports:
       - 3001:3001
     environment:
-      DATABASE_URL: mysql://root:rootpassword@db:3306/dockerdb
+      DATABASE_URL: 
       JWT_SECRET: iohfghik;uffhsdkuaiGUIODFSghuiofdsUIFGSaeguifeWGUIasefd
+    networks:
+      - my_network
 
   back-logic:
     build: ./back-logic
     ports:
       - 3002:3002
     environment:
-      DATABASE_URL: mysql://root:rootpassword@db:3306/dockerdb
+      DATABASE_URL: 
       JWT_SECRET: iohfghik;uffhsdkuaiGUIODFSghuiofdsUIFGSaeguifeWGUIasefd
+    networks:
+      - my_network
 
   front:
     build: ./docker-front
     environment:
-      VITE_AUTH_BACK_URL: http://localhost:3001
-      VITE_LOGIC_BACK_URL: http://localhost:3002
+      VITE_AUTH_BACK_URL: 
+      VITE_LOGIC_BACK_URL: 
     ports:
-      - "80:5137"
+      - "5137:5137"
+    networks:
+      - my_network
+
+  migrator: 
+    build: ./migrator
+    environment:
+      DATABASE_URL: 
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
 
 

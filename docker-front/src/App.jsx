@@ -5,8 +5,8 @@ import { AddTask } from './components/AddTask'
 import Login from './components/Login'
 import Register from './components/Register'
 
-const AUTH_API_URL = import.meta.env.VITE_AUTH_BACK_URL
-const TASK_API_URL = import.meta.env.VITE_LOGIC_BACK_URL
+const AUTH_API_URL = 'https://'
+const TASK_API_URL = 'https://'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)

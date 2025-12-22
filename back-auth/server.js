@@ -7,11 +7,9 @@ const app = express()
 const PORT = 3001
 
 app.use(cors({
-    origin: [
-        'http://localhost:5173', 
-        'http://localhost',      
-        'http://127.0.0.1'       
-    ],
+    origin: function (origin, callback) {
+        callback(null, true);
+    },
     credentials: true 
 }));
 
